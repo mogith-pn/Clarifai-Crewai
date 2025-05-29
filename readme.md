@@ -38,19 +38,15 @@ marketing_agent_test/
 ```
 ## 🧠 Key Components
 
-### 1. Clarifai LLM Integration
-The project uses a custom ClarifaiLLM class for model interactions:
+### 1. CrewAI LLM Integration
+The project CrewAI's LLM class for model interactions:
 ```
-from marketing_agent.llm import ClarifaiLLM
+from crewai import LLM
 
-llm = ClarifaiLLM(
-    model_url="www.clarifai.com/openai/chat-completion/models/gpt-4o",
-    pat="your_pat_here",
-    max_tokens=1500,
-    temperature=1,
-    top_p=1
+llm = LLM(
+    model="openai/openai/chat-completion/models/gpt-4o",
+    base_url="https://api.clarifai.com/v2/ext/openai/v1",
 )
-
 ```
 ### 2. Agent Configuration
 Agents are defined in agents.yaml and initialized in crew.py:
@@ -81,10 +77,8 @@ def marketing_strategy_task(self) -> Task:
 
 ## ▶️ Usage
 Update the configuration files:
-
-agents.yaml: Define agent roles and goals
-
-tasks.yaml: Define task descriptions and expected outputs
+- agents.yaml: Define agent roles and goals
+- tasks.yaml: Define task descriptions and expected outputs
 
 Run the marketing crew:
 ```
@@ -95,7 +89,7 @@ inputs = {
     "project_description": "Your project description"
 }
 
-run()
+run(inputs)
 ```
 
 ## 👥 Agents and Their Roles
