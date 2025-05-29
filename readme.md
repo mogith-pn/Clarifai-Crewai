@@ -1,4 +1,4 @@
-# 🚀 Clarifai CrewAI Marketing Agent
+# 🚀 Clarifai CrewAI Agents
 
 This repository demonstrates how to build an AI-powered marketing crew using [CrewAI](https://github.com/joaomdmoura/crewAI) and [Clarifai's LLM](https://www.clarifai.com/) capabilities. The project showcases automation of marketing tasks through collaborative AI agents.
 
@@ -23,37 +23,24 @@ export CLARIFAI_PAT="your_clarifai_pat_here"
 export SERPER_API_KEY="your_serper_api_key_here"
 ```
 
-## 📁 Project Structure
-```
-marketing_agent_test/
-├── src/
-│   ├── marketing_agent/
-│   │   ├── config/
-│   │   │   ├── agents.yaml
-│   │   │   └── tasks.yaml
-│   │   ├── crew.py
-│   │   ├── llm.py
-│   │   └── main.py
-│   └── run_marketing_agent.ipynb
-```
 ## 🧠 Key Components
 
 ### 1. Clarifai LLM Integration
 The project uses a custom ClarifaiLLM class for model interactions:
 ```
-from marketing_agent.llm import ClarifaiLLM
+from crewai import LLM
 
-llm = ClarifaiLLM(
-    model_url="www.clarifai.com/openai/chat-completion/models/gpt-4o",
-    pat="your_pat_here",
-    max_tokens=1500,
-    temperature=1,
-    top_p=1
+llm = LLM(
+    model="openai/openai/chat-completion/models/gpt-4o",
+    base_url="https://api.clarifai.com/v2/ext/openai/v1",
+    api_key="CLARIFAI_PAT"   
 )
 
 ```
 ### 2. Agent Configuration
 Agents are defined in agents.yaml and initialized in crew.py:
+
+For example -
 ```
 @agent
 def lead_market_analyst(self) -> Agent:
