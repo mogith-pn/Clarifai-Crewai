@@ -10,15 +10,22 @@ from crewai_tools import SerperDevTool, ScrapeWebsiteTool
 from pydantic import BaseModel, Field
 import os
 
+serper_api_key = os.getenv("SERPER_API_KEY")
+if serper_api_key is None:
+    print("Error: SERPER_API_KEY environment variable not set.")
+    exit()
 
-os.environ["SERPER_API_KEY"] ="SERPER_KEY"
-os.environ["OPENAI_API_KEY"] = "CLARIFAI_API_KEY" #Set your clarifai api key here in alias of OPENAI_API_KEY
+# Your Clarifai PAT will be used in alias of OPENAI_API_KEY
+clarifai_pat = os.getenv("CLARIFAI_PAT")
+if clarifai_pat is None:
+    print("Error: CLARIFAI_PAT environment variable not set.")
+    exit()
+else:
+    os.environ["OPENAI_API_KEY"] = clarifai_pat
 
 llm = LLM(
     model="openai/openai/chat-completion/models/gpt-4o",
     base_url="https://api.clarifai.com/v2/ext/openai/v1",
-    #api_key="CLARIFAI_PAT" # You can also set your clarifai api key here
-    
 )
 
 class MarketStrategy(BaseModel):
