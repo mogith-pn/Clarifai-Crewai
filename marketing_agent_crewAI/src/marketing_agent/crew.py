@@ -1,5 +1,5 @@
 from typing import List
-from crewai import Agent, Crew, Process, Task
+from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 
 # Uncomment the following line to use an example of a custom tool
@@ -9,17 +9,17 @@ from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import SerperDevTool, ScrapeWebsiteTool
 from pydantic import BaseModel, Field
 import os
-from marketing_agent.llm import ClarifaiLLM
 
-os.environ["SERPER_API_KEY"] ="SERPER_API_KEY"
-model_url = "www.clarifai.com/openai/chat-completion/models/gpt-4o" 
-llm = ClarifaiLLM(
-    model_url=model_url,
-    pat="CLARIFAI_PAT",
-    max_tokens=1500,
-    temperature=1,
-    top_p=1,
- )
+
+os.environ["SERPER_API_KEY"] ="SERPER_KEY"
+os.environ["OPENAI_API_KEY"] = "CLARIFAI_API_KEY" #Set your clarifai api key here in alias of OPENAI_API_KEY
+
+llm = LLM(
+    model="openai/openai/chat-completion/models/gpt-4o",
+    base_url="https://api.clarifai.com/v2/ext/openai/v1",
+    #api_key="CLARIFAI_PAT" # You can also set your clarifai api key here
+    
+)
 
 class MarketStrategy(BaseModel):
     """Market strategy model"""
